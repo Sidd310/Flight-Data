@@ -1,0 +1,37 @@
+import json
+import requests
+from requests import get
+import time
+
+
+url = 'http://api.aviationstack.com/v1/flights?access_key=92c05b698f9f56f4db4cdd22dd02a40f&arr_iata=SFO' 
+one_arrival = get(url).json() 
+one_departure = get(url).json()
+total_arrive = (len(one_arrival['data']))
+
+for i in range (0,total_arrive):
+  print ("DEPARTURE")
+  print (one_departure['data'][i]['departure']['airport'])
+  landing_time=str(one_departure['data'][i]['departure']['estimated'])
+  shorted_time=landing_time.replace(":00+00:00","")
+  print(shorted_time) 
+  print (one_departure['data'][i]['airline']['name'])
+  print (one_departure['data'][i]['flight']['iata'])  
+  print (" ")
+  print ("ARRIVAL")
+  landing_time=str(one_arrival['data'][i]['arrival']['estimated'])
+  shorted_time=landing_time.replace(":00+00:00","")
+  print (one_arrival['data'][i]['arrival']['airport'])
+  print ("estimated arrival")
+  print (shorted_time)
+  print (one_arrival['data'][i]['airline']['name'])
+  print (one_arrival['data'][i]['flight']['iata'])
+  print ("flight status")
+  print (one_arrival['data'][i]['flight_status'])
+  print ("terminal")
+  print (one_arrival['data'][i]['arrival']['terminal'])
+  print ("gate")
+  print (one_arrival['data'][i]['arrival']['gate'])
+  print ("baggage claim")
+  print (one_arrival['data'][i]['arrival']['baggage'])
+  print ("---------------")
